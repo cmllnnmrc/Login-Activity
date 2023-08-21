@@ -1,0 +1,93 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class Login {
+
+	public static void main(String[] args) 
+	{
+		loginFrame frame = new loginFrame();
+
+	}
+	
+}
+	class loginFrame extends JFrame implements ActionListener
+	{
+		JLabel un, pw, msg;
+		JTextField userN, passW;
+		JButton ok, clr;
+		int attempts = 3;
+		
+		public loginFrame()
+		{
+			super("SIGN-IN");
+			
+			un = new JLabel("USERNAME: ");
+			pw = new JLabel("PASSWORD: ");
+			msg = new JLabel("");
+			
+			userN = new JTextField(20);
+			passW = new JTextField(20);
+			
+			ok = new JButton("Login");
+			clr = new JButton("Clear");
+			
+			setLayout(new FlowLayout());
+			setVisible(true);
+			setSize(260, 250);
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			
+			add(un);
+			add(userN);
+			add(pw);
+			add(passW);
+			
+			
+			add(ok);
+			add(clr);
+			
+			add(msg);
+			ok.addActionListener(this);
+			clr.addActionListener(this);
+		}
+		
+		public void actionPerformed(ActionEvent a)
+		{
+			String username = userN.getText();
+			String password = passW.getText();
+			
+			
+			if (a.getSource() == clr)
+			{
+				userN.setText("");
+				passW.setText("");
+				msg.setText("");
+			}
+			
+			if (a.getSource() == ok)
+			{
+				while (attempts != 0)
+				{
+					
+					if (username.equalsIgnoreCase("admin") && password.equalsIgnoreCase("123"))
+					{
+						msg.setText("Welcome to your profile!!");
+					}
+					else
+					{
+						attempts--;
+						msg.setText("INVALID un or pw! " + attempts + " more tries(y)");	
+					}
+					return;
+				
+				}
+			}
+			if (attempts == 0)
+				{
+					msg.setText("You already used 3 chances!");
+					JOptionPane.showMessageDialog(null, "SYSTEM LOCKED" , "WARNING", JOptionPane.ERROR_MESSAGE);
+				}
+	
+		}
+	}
+
